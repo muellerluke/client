@@ -1,8 +1,17 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+
+import "./main-view.scss";
+
+import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { RegistrationView } from "../registration-view/registration-view";
 
 export class MainView extends React.Component {
   constructor() {
@@ -11,6 +20,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       selectedMovie: null,
+      user: null,
+      register: false,
     };
   }
 
@@ -34,27 +45,74 @@ export class MainView extends React.Component {
       selectedMovie: movie,
     });
   }
+
+  onLoggedIn(user) {
+    this.setState({
+      user,
+    });
+  }
+
+  onButtonClick() {
+    this.setState({
+      selectedMovie: null,
+    });
+  }
+
+  onSignIn(user) {
+    this.setState({
+      user: user,
+      register: false,
+    });
+  }
+
+  register() {
+    this.setState({ register: true });
+  }
   // This overrides the render() method of the superclass
   // No need to call super() though, as it does nothing by default
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, user, register } = this.state;
 
+    if (!user && register === false)
+      return (
+        <LoginView
+          onClick={() => this.onRegistered()}
+          onLoggedIn={(user) => this.onLoggedIn(user)}
+        />
+      );
+
+    if (register)
+      return (
+        <RegistrationView
+          onClick={() => this.alreadyMember()}
+          onSignedIn={(user) => this.onSignedIn(user)}
+        />
+      );
     // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        {selectedMovie ? (
-          <MovieView movie={selectedMovie} />
-        ) : (
-          movies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              movie={movie}
-              onClick={(movie) => this.onMovieClick(movie)}
-            />
-          ))
-        )}
+        <Container>
+          <Row>
+            {selectedMovie ? (
+              <MovieView
+                movie={selectedMovie}
+                onClick={() => this.onButtonClick()}
+              />
+            ) : (
+              movies.map((movie) => (
+                <Col key={movie._id} xs={12} sm={6} md={4}>
+                  <MovieCard
+                    key={movie._id}
+                    movie={movie}
+                    onClick={(movie) => this.onMovieClick(movie)}
+                  />
+                </Col>
+              ))
+            )}
+          </Row>
+        </Container>
       </div>
     );
   }

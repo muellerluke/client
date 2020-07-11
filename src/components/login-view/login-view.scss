@@ -1,3 +1,7 @@
+$primary-color: #d9d9d9;
+$secondary-color: #595959;
+$font-stack: sans-serif;
+
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +19,7 @@
   text-align: left;
   position: absolute;
   left: 30%;
-  background-color: #d9d9d9;
+  background-color: $primary-color;
   border-radius: 4px;
   margin-top: 20px;
   padding: 10px;
@@ -35,7 +39,7 @@ label {
 
 .button-main {
   color: #fff;
-  background-color: #595959;
+  background-color: $secondary-color;
   border: 0;
   border-radius: 4px;
   padding: 2px;
@@ -46,19 +50,3 @@ label {
 .button-main:hover {
   background-color: #8c8c8c;
 }
-.movie-title {
-  text-align: center;
-}
-.movie-title .label {
-  font-weight: 700;
-  font-size: 56px;
-}
-.movie-title .value {
-  font-weight: 700;
-  font-size: 56px;
-}
-.my-flix {
-  color: steelblue;
-}
-
-/*# sourceMappingURL=/src.78399e21.css.map */

@@ -46,17 +46,6 @@ label {
 .button-main:hover {
   background-color: #8c8c8c;
 }
-.movie-title {
-  text-align: center;
-}
-.movie-title .label {
-  font-weight: 700;
-  font-size: 56px;
-}
-.movie-title .value {
-  font-weight: 700;
-  font-size: 56px;
-}
 .my-flix {
   color: steelblue;
 }
